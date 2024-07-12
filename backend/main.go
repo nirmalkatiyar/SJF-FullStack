@@ -13,7 +13,13 @@ import (
 const PORT = ":8080"
 
 func main() {
+	log.Println("Hello");
 	router := mux.NewRouter()
+	// Hello endpoint with anonymous function
+	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("Hello"))
+	}).Methods("GET")
 	// to add a job
 	router.HandleFunc("/jobs", handler.CreateJob).Methods("POST")
 	// to toggle between preemptive and non preemptive
